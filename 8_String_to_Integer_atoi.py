@@ -61,9 +61,6 @@ class Solution(object):
                 numList.append(ord(i))
         if sign_num >= 2:
             return(0)
-        print(sign_num, sign)   
-        print(numList)
-        #numList = [i for i in numList if i>=48 and i <=57]
         
         for i in range(len(numList), 0, -1):
             
