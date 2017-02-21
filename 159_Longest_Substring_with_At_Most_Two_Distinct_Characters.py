@@ -2,8 +2,7 @@
 
 Given a string, find the length of the longest substring T that contains at most 2 distinct characters.
 
-For example, Given s = “eceba”,
-
+For example, Given s = "eceba"
 T is "ece" which its length is 3.
 
 """
@@ -65,3 +64,23 @@ class Solution(object):
                 start = min(char_hash.values())+1
                 char_hash.pop(s[start-1])
         return(max_len)
+
+    def longestSubstring3(self, s, k):
+        start = max_len = 0
+        s_hash  = {}
+        for i in range(len(s)):
+            s_hash [s[i]] = i
+            if len(s_hash) < 3:
+                max_len = max(max_len, i-start+1)
+            
+            else:
+                max_len = max(max_len, i-start)
+                start = min(s_hash.values())+1
+                s_hash.pop(s[start-1])
+        return(max_len)
+                
+
+    
+s= Solution()
+print(s.lengthOfLongestSubstringTwoDistinct2("ba"))
+print(s.longestSubstring3("ba", 2))
