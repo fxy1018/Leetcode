@@ -46,5 +46,29 @@ class Solution(object):
                 pos_hash[temp_sum] = i + 1
                 
         return(out or 0)
+    
+    #second time
+    def maxSubArrayLen2(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        sum_pos = {0:-1}
+        res = 0 
+        temp_sum = 0
+        
+        for i in range(len(nums)):
+            temp_sum += nums[i]
+            remain_sum = temp_sum - k
+            if remain_sum in sum_pos:
+                length = i - sum_pos[remain_sum] 
+                res = max(length, res)
+                
+            if temp_sum not in sum_pos:
+                sum_pos[temp_sum] = i 
+               
+        
+        return(res)
         
 
