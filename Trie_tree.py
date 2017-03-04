@@ -12,16 +12,55 @@ ex:
 
 I have intall PyTrie package 
 
+
+Trie or Prefix tree implemention:
+
+1. addWord
+2. searchWord O(M), M is the maximum string length
+3. deleteWord
+
 """
+
 '''
 Created on Mar 3, 2017
 
 @author: fanxueyi
 '''
 
-class TreeNode(obejct):
+class TreeNode(object):
+    def __init__(self):
+        self.value = ""
+        self.children = dict()
+        self.isLeaf = False
     
-    
-    pass
-
 class Trie(object):
+    def __init__(self):
+        self.root = TreeNode()
+    
+    def insert(self,word):
+        node = self.root
+        for letter in word:
+            if letter not in node.children:
+                child = TreeNode()
+                child.value = letter
+                node.children[letter] = child
+            node = node.children[letter]
+        node.isLeaf = True
+        
+    def search(self, word):
+        node = self.root
+        for letter in word:
+            if letter in node.children:
+                node = node.children[letter]
+            else:
+                return(False)
+        
+        return(node.isLeaf)
+    
+
+        
+        
+        
+        
+        
+    
