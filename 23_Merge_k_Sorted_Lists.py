@@ -23,9 +23,9 @@ Created on Feb 20, 2017
  
 
 class Solution(object):
-    #method1: use min heap (priority queue)
+    #method1: use min heap_priority_queue (priority queue)
     def mergeKLists1(self, lists):
-        import heapq
+        import heap_priority_queue
         """
         :type lists: List[ListNode]
         :rtype: ListNode
@@ -33,15 +33,15 @@ class Solution(object):
         if not lists:
             return(None)
         hp = [(n.val,n) for n in lists if n]
-        heapq.heapify(hp)
+        heap_priority_queue.heapify(hp)
         head = curr = ListNode(-1)
     
         while hp:
-            (val, node)= heapq.heappop(hp)
+            (val, node)= heap_priority_queue.heappop(hp)
             curr.next = node
             curr = curr.next
             if node.next:
-                heapq.heappush(hp, (node.next.val, node.next))
+                heap_priority_queue.heappush(hp, (node.next.val, node.next))
 
         return head.next
         

@@ -19,7 +19,7 @@ Created on Jan 30, 2017
 #         self.start = s
 #         self.end = e
 
-import heapq
+import heap_priority_queue
 class Solution(object):
     def minMeetingRooms(self, intervals):
         """
@@ -43,21 +43,21 @@ class Solution(object):
         return(room)
         """
         
-        #use heapq
+        #use heap_priority_queue
         intervals = sorted(intervals, key=lambda x: x.start)
         room = 0
         heap=[]
-        heapq.heapify(heap)
+        heap_priority_queue.heapify(heap)
         for i in intervals:
             if len(heap) == 0:
-                heapq.heappush(heap,i.end)
+                heap_priority_queue.heappush(heap,i.end)
                 room +=1
                 continue
             if heap[0] <= i.start:
-                # heap pop and push
-                heapq.heapreplace(heap, i.end)
+                # heap_priority_queue pop and push
+                heap_priority_queue.heapreplace(heap, i.end)
             else:
-                heapq.heappush(heap, i.end)
+                heap_priority_queue.heappush(heap, i.end)
                 room +=1
         return(room)
 

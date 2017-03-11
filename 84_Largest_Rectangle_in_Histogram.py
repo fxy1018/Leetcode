@@ -15,8 +15,7 @@ Created on Mar 4, 2017
 @author: fanxueyi
 '''
 
-import pdb
-pdb.set_trace()
+
 
 class Solution(object):
     def largestRectangleArea(self, heights):
@@ -94,7 +93,7 @@ class Solution2(object):
             
         
                 
-s = Solution()
-print(s.largestRectangleArea([1,1]))          
-        
+# s = Solution()
+# print(s.largestRectangleArea([1,1]))          
+#         
         
