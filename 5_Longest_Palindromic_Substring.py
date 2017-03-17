@@ -37,5 +37,24 @@ class Solution(object):
                     max_len = curr_len
             
         return(s[start:start+max_len])
+    
+    def longestPalindrome2(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        n = len(s)
+        dp = [[False]*n for i in range(n)]
+        
+        maxLen = 0
+        res = ""
+        for i in range(n-1, -1, -1):
+            for j in range(i,n):
+                if (j-i< 3 or dp[i+1][j-1]) and s[i] == s[j]:
+                    dp[i][j] = True
+                    if maxLen < j-i+1:
+                        maxLen = j-i+1
+                        res = s[i:j+1]
+        return(res)
                     
         
