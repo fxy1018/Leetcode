@@ -42,6 +42,25 @@ class Solution2(object):
             else:
                 diff0 ^= n
         return(diff1, diff0)
+    
+    def findNumber2(self,nums):
+        diffAB = 0
+        for n in nums:
+            diffAB ^= n
+            
+        mask = 1
+        diff0 = diffAB
+        diff1 = diffAB
+        while diffAB & mask == 0:
+            mask <<= 1
+            
+        for n in nums:
+            if n & mask == 0:
+                diff1 ^= n
+            else:
+                diff0 ^= n
+                
+        return([diff1, diff0])
                 
         
         

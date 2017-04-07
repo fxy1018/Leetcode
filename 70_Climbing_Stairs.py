@@ -37,3 +37,25 @@ class Solution(object):
             maps[n] = self.helpFun(maps,n-1) + self.helpFun(maps,n-2)
             return maps[n]
         
+        
+    def climbStairs2(self,n):
+        if n < 1:
+            return 0
+        
+        if n == 1 :
+            return 1
+        
+        if n == 2:
+            return 2
+            
+        climb1 = 1
+        climb2 = 2
+        
+        for i in range(3, n+1):
+            tmp = climb1 + climb2
+            climb1 = climb2
+            climb2 = tmp
+        return tmp
+    
+    
+        
