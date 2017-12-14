@@ -5,6 +5,7 @@ class Solution(object):
         :type amount: int
         :rtype: int
         """
+        #DP problem 
         result = [0 for _ in range(amount+1)]
         result[0] = 1
         for i in range(min(coins), amount+1):
