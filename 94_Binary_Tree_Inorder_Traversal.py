@@ -35,3 +35,18 @@ class Solution(object):
                 out.append(root.val)
                 root = root.right
         return(out)
+   
+class Solution2(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        self.helpFun(root, res)
+        return(res)
+    def helpFun(self, root, res):
+        if root:
+            self.helpFun(root.left, res)
+            res.append(root.val)
+            self.helpFun(root.right, res)
