@@ -66,8 +66,7 @@ class WordDictionary(object):
                     sub_node = nodes[key] 
                     out = out or self.helpFun(new_word, sub_node)
                 return(out)
-            elif not letter:
-                return(node.isLeaf)
+        return(node.isLeaf)
        
         
         
