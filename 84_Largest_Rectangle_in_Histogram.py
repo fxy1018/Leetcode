@@ -89,6 +89,60 @@ class Solution2(object):
             stack.append(i)
         return(res)
             
+  '''
+Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+'''
+
+class Solution3(object):        
+    def largestRectangleArea2(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        #time limit, O(n) = n^2
+        if not heights:
+            return(0)
+        n = len(heights)
+        out = []
+        for i in range(n):
+            count = 0
+            for j in range(i, -1, -1):
+                if heights[j] >= heights[i]:
+                    count += 1
+                else:
+                    break
+            for z in range(i+1, n):
+                if heights[z] >= heights[i]:
+                    count += 1
+                else:
+                    break
+            out.append(heights[i] * count)
+                
+        return(max(out)) 
+        
+      #method2: use a stack to store left and right boundary
+      class Solution(object):
+    def largestRectangleArea2(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        heights.append(0)
+        n = len(heights)
+        stack = [-1]
+        out = 0
+        for i in range(n):
+            curr = heights[i]
+            while curr < heights[stack[-1]]:
+                index = stack.pop()
+                out = max(out, heights[index] * (i-stack[-1]-1))
+            stack.append(i)
+            
+        heights.pop()
+         
+        return(out)
+        
+    
         
             
         
