@@ -41,3 +41,28 @@ class Solution(object):
         p2.next = more.next
         return(less.next)
   
+    def partition2(self, head, x):
+        """
+        :type head: ListNode
+        :type x: int
+        :rtype: ListNode
+        """
+        if not head:
+            return head
+        
+        p1 = more = ListNode(-1)
+        p2 = less = ListNode(-1)
+        
+        while head:
+            if head.val >= x:
+                p1.next = head
+                p1 = p1.next
+            else:
+                p2.next = head
+                p2 = p2.next
+                
+            head = head.next
+        
+        p1.next = None
+        p2.next = more.next
+        return(less.next)
