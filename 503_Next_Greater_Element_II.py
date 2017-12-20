@@ -5,7 +5,7 @@ Given a circular array (the next element of the last element is the first elemen
 '''
 
 class Solution(object):
-#burce-force
+#burce-force O(n^2)
     def nextGreaterElements1(self, nums):
         """
         :type nums: List[int]
@@ -20,3 +20,20 @@ class Solution(object):
                     break
         return(out)
    
+#use stack to store the index, O(n)
+    def nextGreaterElements2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        out = [-1] * len(nums) 
+        stack = []
+        for i in range(2*len(nums)-1, -1, -1):
+            while stack and nums[stack[-1]]<= nums[i%len(nums)]:
+                stack.pop()
+            
+            if stack:
+                out[i%len(nums)] = nums[stack[-1]]
+            stack.append(i%len(nums))
+        
+        return(out)
