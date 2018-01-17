@@ -64,7 +64,28 @@ class Solution(object):
         if node.right:
             self.dfs(node.right, new_sum, new_path)
  
-
+class Solution3(object):
+    def pathSum(self, root, s):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: List[List[int]]
+        """
+        if not root:
+            return([])
+        out = []
+        self.dfs(root, [], out, s)
+        return(out)
+    def dfs(self, node, ls, out, s):
+        ls = ls + [node.val]
+        
+        if not node.right and not node.left and sum(ls) ==s:
+            out.append(ls)
+        if node.left:
+            self.dfs(node.left, ls, out, s)
+        if node.right:
+            self.dfs(node.right, ls, out,s)
+            
 #pre order travesal recursively
 class Solution2(object):
     def pathSum(self, root, s):
