@@ -32,7 +32,8 @@ Given tree t:
 Return false.
 
 '''
-
+#time: O(m*n),  In worst case(skewed tree) traverse function takes O(m*n)O(m∗n) time.
+#space: O(n), The depth of the recursion tree can go upto nn. nn refers to the number of nodes in s.
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
