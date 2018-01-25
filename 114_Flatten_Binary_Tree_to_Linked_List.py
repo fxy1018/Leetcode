@@ -60,3 +60,35 @@ class Solution(object):
             dummy.right = node
             dummy.left = None
             dummy = dummy.right
+                  
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution2(object):
+    #preorder
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        
+        if not root:
+            return(root)
+        
+        left = self.flatten(root.left)
+        right = self.flatten(root.right)
+        
+        left = root.left
+        right = root.right
+        
+        root.left = None
+        root.right = left
+        head = root
+        while head.right:
+            head = head.right
+        head.right = right
+         
