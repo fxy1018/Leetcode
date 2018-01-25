@@ -54,4 +54,36 @@ class Solution(object):
         if node.right:
             self.dfs(newcurrstr, node.right, res)
             
-    
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    #preorder
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.total = 0
+        path = 0
+        
+        if not root:
+            return(0)
+        
+        self.preOrder(root, path)
+        return(self.total)
+        
+        
+    def preOrder(self, root, path):
+        if not root.left and not root.right:
+            self.total += (path*10 + root.val)
+            return
+        
+        if root.left:
+            self.preOrder(root.left, path*10+root.val)
+        if root.right:
+            self.preOrder(root.right, path*10+root.val)    
