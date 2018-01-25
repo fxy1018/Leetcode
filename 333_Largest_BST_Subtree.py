@@ -130,4 +130,59 @@ class Solution2(object):
                 return(root, record)
     
         return((leftNode, leftRecord) if leftRecord[0] > rightRecord[0] else (rightNode, rightRecord))
+   
+class TreeNode(object):
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+        
+class Solution(object):
+    def LongestBSTSubtree(self, root):
+        if not root:
+            return(0)
+        record = [None, None, None]
+        node, size = self.postOrder(root, record)
+        return(size)
+    
+    def postOrder(self, node, record):
+        if not node:
+            record[0] = 0
+            record[1] = float("Inf")
+            record[2] = -float("Inf")
+            return(None,0)
+        
+        value = node.val      
+        leftNode, lsize = self.postOrder(node.left, record)
+        lSize, lMin, lMax = record[0], record[1], record[2]
+        
+        rightNode, rsize = self.postOrder(node.right, record)
+        rSize, rMin, rMax = record[0], record[1], record[2]
+        
+        record[1] = min(lMin, value)
+        record[2] = max(rMax, value)
+        
+        if node.left == leftNode and node.right == rightNode and lMax < value and rMin > value:
+            record[0] = lSize + rSize + 1
+            return(node, record[0])
+        
+        elif lSize > rSize:
+            return(leftNode, lSize)
+        else:
+            return(rightNode, rSize)
+            
+        
+        
+        
+        
+root = TreeNode(10)
+root.left = TreeNode(5)
+root.right = TreeNode(15)
+root.left.left = TreeNode(1)
+root.left.right = TreeNode(8)
+root.right.right = TreeNode(7)
+
+s=Solution()
+print(s.LongestBSTSubtree(root))
+
     
