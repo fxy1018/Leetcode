@@ -97,6 +97,24 @@ class Solution(object):
                         done = True
             return True
         
+class Solution3(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        #preorder recursion
+
+        return(self.preorder(root, -float("Inf"), float('Inf')))
+    
+    def preorder(self, node, floor, ceiling):
+        if not node:
+            return(True)
+        
+        if node.val <= floor or node.val >= ceiling:
+            return(False)
+        
+        return(self.preorder(node.left, floor, node.val) and self.preorder(node.right, node.val, ceiling))
         
                         
          
