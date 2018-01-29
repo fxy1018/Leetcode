@@ -86,3 +86,28 @@ class Solution:
             newNode.neighbors.append(self.dfs(neighbor))
         return(newNode)
 
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    
+    def cloneGraph(self, node):
+        if not node:
+            return
+        newNode = UndirectedGraphNode(node.label)
+        queue = [node]
+        dic = {node:newNode}
+        while queue:
+            currNode = queue[0]
+            queue = queue[1:]
+            
+            for n in currNode.neighbors:
+                if n not in dic:
+                    neighborNew = UndirectedGraphNode(n.label)
+                    dic[n] = neighborNew
+                    dic[currNode].neighbors.append(neighborNew)
+                    queue.append(n)
+                else:
+                    dic[currNode].neighbors.append(dic[n])
+                    
+        
+        return(newNode)
