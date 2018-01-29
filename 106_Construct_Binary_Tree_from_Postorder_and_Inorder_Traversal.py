@@ -56,7 +56,36 @@ class Solution(object):
             root.left = self.buildTree(inorder[:index], postorder)
             return root
     
-    
+
+    # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution2:
+    def buildTree(self, inorder, postorder):
+        """
+        :type inorder: List[int]
+        :type postorder: List[int]
+        :rtype: TreeNode
+        """
+        #similar to LC105, the root is the last number of postorder
+        if not inorder:
+            return(None)
+        
+        root = TreeNode(postorder[-1])
+        
+        index = inorder.index(postorder[-1])
+        leftPostorder = postorder[0:index]
+        rightPostorder = postorder[index: (len(postorder)-1)]
+        leftInorder = inorder[0:index]
+        rightInorder= inorder[index+1:]
+        root.left = self.buildTree(leftInorder, leftPostorder)
+        root.right = self.buildTree(rightInorder, rightPostorder)
+        
+        return(root)
  
 s= Solution()
 print(s.buildTree([2,1], [2,1]))
