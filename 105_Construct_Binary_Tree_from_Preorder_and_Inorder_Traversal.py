@@ -53,7 +53,44 @@ class Solution(object):
             root.right = self.buildTree(preorder, inorder[index+1:])
             return root
         
+ #sceond time 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution2:
+    def buildTree(self, preorder, inorder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        """
+        if not preorder:
+            return(None)
         
+        root = TreeNode(preorder[0])
+        n = len(preorder)
+      
+        index = inorder.index(preorder[0])
+        leftPreorder = preorder[1: 1+index]
+        rightPreorder = preorder[1+index:]
+        leftInorder = inorder[0:index]
+        rightInorder= inorder[index+1:]
         
+#         for i in range(n):
+#             if preorder[0] == inorder[i]:
+#                 leftPreorder = preorder[1: 1+i]
+#                 rightPreorder = preorder[1+i:]
+#                 leftInorder = inorder[0:i]
+#                 rightInorder= inorder[i+1:]
+                
+        root.left = self.buildTree(leftPreorder, leftInorder)
+        root.right = self.buildTree(rightPreorder, rightInorder)
+        
+        return(root)
+            
         
             
