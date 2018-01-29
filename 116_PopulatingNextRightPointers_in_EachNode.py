@@ -62,3 +62,30 @@ class Solution:
         for levelnode in nodelist:
             for i in range(len(levelnode)-1):
                 levelnode[i].next = levelnode[i+1]
+
+ #another way, use next to get next node of same level
+# Definition for binary tree with next pointer.
+# class TreeLinkNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#         self.next = None
+
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        if not root:
+            return(None)
+        
+        curr = root
+        next = root.left
+        while curr.left:
+            curr.left.next = curr.right
+            if curr.next:
+                curr.right.next = curr.next.left
+                curr = curr.next
+            else:
+                curr = next
+                next = curr.left 
