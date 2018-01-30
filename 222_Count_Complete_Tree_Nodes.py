@@ -21,7 +21,21 @@ Created on Mar 12, 2017
 #         self.left = None
 #         self.right = None
 
-class Solution(object):
+
+
+class Solution1(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        #method1: BFS or DFS, time exceed, O(n)
+        if not root:
+            return(0)
+        
+        return(1+self.countNodes(root.left)+self.countNodes(root.right))
+
+class Solution2(object):
     def countNodes(self, root):
         """
         :type root: TreeNode
