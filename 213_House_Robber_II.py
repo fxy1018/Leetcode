@@ -44,6 +44,36 @@ class Solution(object):
         
         return(b)
     
+   class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        if not nums:
+            return(0)
+        if len(nums) ==1:
+            return(nums[0])
+      
+        #consider rob first house or not rob first house
+        return(max(self.getMaxMoney(nums[1:]),  nums[0] + self.getMaxMoney(nums[2:-1])))
     
+    def getMaxMoney(self, nums):
+        
+        if not nums:
+            return(0)
+        if len(nums) == 1:
+            return(nums[0])
+        
+        prepre = nums[0]
+        pre = max(nums[0], nums[1])
+        
+        for i in range(2, len(nums)):
+            curr = max(pre, prepre + nums[i])
+            prepre = pre
+            pre = curr
+        
+        return(pre) 
     
     
