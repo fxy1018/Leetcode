@@ -2,9 +2,11 @@
 LC217:
 Given an array of integers, find if the array contains any duplicates. Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.
 
-LC218:
+LC219:
 Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
 
+LC220:
+Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
 
 """
 
@@ -22,7 +24,7 @@ class Solution217(object):
         
         return(len(nums) != len(set(nums)))
 
-class Solution218(object):
+class Solution219(object):
     def containsNearbyDuplicate(self, nums, k):
         """
         :type nums: List[int]
@@ -42,7 +44,7 @@ class Solution218(object):
         
         return(False)
     
- class Solution218_2(object):
+ class Solution219_2(object):
     def containsNearbyDuplicate(self, nums, k):
         """
         :type nums: List[int]
