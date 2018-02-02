@@ -56,8 +56,14 @@ class Codec:
                 root = root.right
         res.append("#")
         return("_".join(res))
-    
+
+    #preorder iteration
     def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
         if not root:
             return("#")
         
@@ -79,10 +85,34 @@ class Codec:
                     stack.append(node.left)
                 else:
                     stack.append("#")
-                    
-                
+                          
         return(res[1:])
-             
+     
+    #def preorder recursion:
+    def serialize3(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        if not root:
+            return("#")
+        
+        res = []
+        self.helpFunSer(root, res)
+        return("_".join(res))
+        
+    def helpFunSer(self,root, res):
+        if not root:
+            res.append("#")
+            return
+        res += [str(root.val)]
+        self.helpFunSer(root.left, res)
+        self.helpFunSer(root.right, res)
+    
+    
+    
+    
     def deserialize(self, data):
         """Decodes your encoded data to tree.
         
@@ -91,40 +121,22 @@ class Codec:
         """
         if data == "#":
             return(None)
-        
         data = data.split("_")
-        root = head = TreeNode(data[0])
-        stack = [head]
-        i = 1
-        while i < len(data):
-            pre = stack[-1]
-            if data[i] != "#" and not pre.left:
-                pre.left = TreeNode(data[i])
-                stack.append(pre.left)
-            elif data[i] != "#" and pre.left:
-                pre.right = TreeNode(data[i])
-                stack.append(pre.right)
-            elif i+1 <len(data) and data[i] == "#" and data[i+1] == "#":
-                stack.pop()
-                i += 1
-            else:
-                if data[i] != "#":
-                    pre.right = TreeNode(data[i])
-                    stack.append(pre.right)
-            i += 1
-        return(root)
+        data = data[::-1]
+        return(self.helpFun(data))
     
-root = TreeNode(1)
-root.left = TreeNode(2)
-# root.right = TreeNode(3)
-# root.right.left = TreeNode(4)
-# root.right.right = TreeNode(5)
-
-s = Codec()
-print(s.serialize(root))
-print(s.deserialize(s.serialize(root)).val)
-
-
+    def helpFun(self, data):
+        if not data:
+            return(None)
+        
+        val = data.pop()
+        if val == "#":
+            return(None)
+        
+        root = TreeNode(val)
+        root.left = self.helpFun(data)
+        root.right = self.helpFun(data)
+        return(root)
 
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
