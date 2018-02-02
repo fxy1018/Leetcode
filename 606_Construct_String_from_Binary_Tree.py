@@ -54,3 +54,27 @@ class Solution(object):
             return(str(t.val))
         else:
             return(str(t.val)+"("+self.tree2str(t.left)+")")
+
+class Solution2:
+    def tree2str(self, t):
+        """
+        :type t: TreeNode
+        :rtype: str
+        """
+        #preorder
+        
+
+        if not t:
+            return("")
+        
+        left = self.tree2str(t.left)
+        right = self.tree2str(t.right)
+    
+        if not left and not right:
+            combind= str(t.val)
+        elif not right:
+            combind= str(t.val) + "(" + left + ")"
+        else:
+            combind = str(t.val) + "(" + left + ")" +"(" + right + ")" 
+        return(combind)
+        
