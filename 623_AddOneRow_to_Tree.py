@@ -101,10 +101,54 @@ class Solution:
             newRight.right = right
             
         return(root)
+       
+            
+#modify
+class Solution2:
+    def addOneRow(self, root, v, d):
+        """
+        :type root: TreeNode
+        :type v: int
+        :type d: int
+        :rtype: TreeNode
+        """
+        if not root:
+            return(None)
+        if d == 1:
+            node = TreeNode(v)
+            node.left = root
+            return(node)
+        
+        queue = [(root, 1)]
+        while queue:
+            node, level = queue[0]
+            queue = queue[1:]
+            if level == d:
+                break
+            if level == d-1:
+                newLeft = TreeNode(v)
+                newRight = TreeNode(v)
+                left = node.left
+                right = node.right
+                node.left = newLeft
+                newLeft.left = left
+                node.right = newRight
+                newRight.right = right
+            
+            if node.left:
+                queue.append((node.left, level+1))
+            if node.right:
+                queue.append((node.right, level+1))
+            
+        return(root)
     
             
             
             
+        
+        
+        
+        
         
         
         
