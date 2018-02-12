@@ -55,6 +55,29 @@ class Solution(object):
             
             new_comb = comb + [self.nums[i]]
             self.helpFun(digits, index+1, new_comb, i+1)
-            
+ 
+#method2: bit manipulation
+
+class Solution2(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if not nums:
+            return([])
+        out = []
+        n = len(nums)
+        for i in range(2**n):
+            bit = bin(i)[2:]
+            if len(bit) < n:
+                bit = "0" * (n-len(bit)) + bit
+            tmp = []
+            for j in range(n):
+                if bit[j] != "0":
+                    tmp.append(nums[j])   
+            out.append(tmp)
+        return(out)
+
 s = Solution()
 print(s.subsets([1,2,3]))
