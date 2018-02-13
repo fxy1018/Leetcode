@@ -143,8 +143,27 @@ class Solution3(object):
         return(out)
         
     
+class Solution(object):
+    def largestRectangleArea(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        #increasing stack
+        res = 0
+        stack = [-1]
+        heights.append(0)
+        n = len(heights)
         
-            
+        for i in range(n):
+            curr = heights[i]
+            while stack[-1] != -1 and heights[stack[-1]] >= curr:
+                index = stack.pop()
+                res = max(heights[index] * (i-stack[-1]-1), res)
+            stack.append(i)
+
+        return(res)     
+          
         
                 
 # s = Solution()
