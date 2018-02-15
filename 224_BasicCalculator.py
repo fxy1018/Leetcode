@@ -63,4 +63,41 @@ class Solution:
                 out += operator*int(char)
                 operator = 1
         return(out)
+
+    #modify logic
+class Solution:
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        stack = []
+        out = 0
+        sign = 1
+        num = 0
+        for i in range(len(s)):
+            char = s[i]
+            if char in "12345567890":
+                num = 10*num + int(char)
+            elif char == "+":
+                out += sign * num
+                sign = 1
+                num = 0
+            elif char == "-":
+                out += sign * num
+                sign = -1
+                num = 0
+            elif char == "(":
+                stack.append(out)
+                stack.append(sign)
+                sign = 1
+                out = 0
                 
+            elif char == ")":
+                out += sign * num
+                num = 0
+                out *= stack.pop()
+                out += stack.pop()
+        
+        out+= sign*num
+        return(out)
