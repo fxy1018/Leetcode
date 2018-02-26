@@ -112,6 +112,34 @@ class Solution2(object):
         heap_arr[index1] = heap_arr[index2]
         heap_arr[index2] = temp
         
+    import heapq
+class Solution:
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        numMap = {}
+        for n in nums:
+            numMap[n] = numMap.get(n,0)+1
+        heap = []
+        keys = list(numMap.keys())
+        
+        for i in range(k):
+            heapq.heappush(heap, (numMap[keys[i]], keys[i]))
+        
+        for i in range(k,len(keys)):
+            topValue, topKey = heap[0]
+            if numMap[keys[i]] > topValue:
+                heapq.heappop(heap)
+                heapq.heappush(heap, (numMap[keys[i]], keys[i]))
+        res = []
+        while heap:
+            res.append(heapq.heappop(heap)[1])
+            
+        return(res)
+        
         
         
         
