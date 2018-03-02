@@ -19,6 +19,7 @@ Input words contain only lowercase letters.
 Follow up:
 Try to solve it in O(n log k) time and O(n) extra space.
 
+similar to 347
 '''
 
 #create maxHeap
