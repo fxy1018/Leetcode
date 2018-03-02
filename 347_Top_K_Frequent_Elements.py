@@ -139,8 +139,21 @@ class Solution:
             res.append(heapq.heappop(heap)[1])
             
         return(res)
-        
-        
+       
+import heapq
+class Solution:
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        numMap = {}
+        for n in nums:
+            numMap[n] = numMap.get(n,0)+1
+        heap = [(-freq, num) for num, freq in numMap.items()]
+        heapq.heapify(heap)
+        return([heapq.heappop(heap)[1] for _ in range(k)])
         
         
 
