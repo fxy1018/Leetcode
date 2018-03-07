@@ -86,7 +86,51 @@ class Solution(object):
         
         
         
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def reverseBetween(self, head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        """
+        i = 1
+        p1 = head
+        pre = None
+        while i < m:
+            pre = p1
+            p1= p1.next
+            i += 1
+    
+        node = self.reverseList(p1, n-m)
+        if pre:
+            pre.next = node
+            return(head)
+        else:
+            return(node)
         
+    def reverseList(self, node, c):
+        if c == 0:
+            return(node)
+        count = 0
+        pre = None
+        curr = node
+        while count <= c:
+            tmp = curr.next
+            curr.next = pre
+            pre = curr
+            curr= tmp
+            count += 1
+        
+        node.next = curr
+        return(pre)
+                
 
 
 
