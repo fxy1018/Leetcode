@@ -118,8 +118,39 @@ class Solution(object):
         return(out)
                 
             
+                      
+# Definition for singly-linked list with a random pointer.
+# class RandomListNode(object):
+#     def __init__(self, x):
+#         self.label = x
+#         self.next = None
+#         self.random = None
+#method1: use hash
+class Solution(object):
+    def copyRandomList(self, head):
+        """
+        :type head: RandomListNode
+        :rtype: RandomListNode
+        """
+        if not head:
+            return
+        
+        nodeHash = {None: None}
+        q1 = q2 = head
+        #cope q1
+        while q1:
+            newNode = RandomListNode(q1.label)
+            nodeHash[q1] = newNode
+            q1= q1.next
+        #build relationship
+        
+        while q2:
+            nodeHash[q2].next = nodeHash[q2.next]
+            nodeHash[q2].random = nodeHash[q2.random]
+            q2 = q2.next
             
-                  
-            
+        return(nodeHash[head])
+        
+   #method2: copy node follow up the curr node, extra space: O(1)            
             
         
