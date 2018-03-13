@@ -49,5 +49,26 @@ class Solution(object):
 
 #如果当前论文数量比index大了说明，这个index就是h-index，也就是至少有index篇论文，且引用数不低于index．此时我们就可以返回答案了
     
-    
+ class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        n = len(citations)
+        cArray = [0] * (n + 1)
+        
+        for c in citations:
+            if c >=n :
+                cArray[n] = cArray[n] + 1
+            else:
+                cArray[c] = cArray[c] + 1
+        
+        res = 0
+        for i in range(n, -1, -1):
+            res += cArray[i]
+            if res >=i:
+                return(i)
+        return(0)
+                 
     
