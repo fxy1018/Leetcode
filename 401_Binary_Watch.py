@@ -41,3 +41,5 @@ class Solution:
                     res.append(hour + ":" + minute)
         return(res)
         
+#mehtod2:这个灯亮问题的本质其实就是在n个数字中取出k个，那么就跟之前的那道Combinations一样，我们可以借鉴那道题的解法，那么思路是，如果总共要取num个，我们在小时集合里取i个，算出和，然后在分钟集合里去num-i个求和，如果两个都符合题意，那么加入结果中即可
+
