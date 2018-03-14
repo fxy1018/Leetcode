@@ -13,9 +13,7 @@ class Solution(object):
         """
         :type nums: List[int]
         :rtype: int
-        """
-        #return((sum(set(nums))*3 - sum(nums))/2)
-        
+        """    
         #bit manipulation
         ans = 0
         for i in range(32):
@@ -32,3 +30,14 @@ class Solution(object):
             x -= 2**32
         return(x)
         
+   def singleNumber2(self, nums):
+        #method1: Math
+        return((sum(set(nums))*3 - sum(nums))/2)
+   def singleNumber3(self, nums):     
+        #method3: hash
+        numHash = {}
+        for n in nums:
+            numHash[n] = numHash.get(n, 0) + 1
+        for key in numHash:
+            if numHash[key] == 1:
+                return(key)
