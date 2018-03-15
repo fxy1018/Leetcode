@@ -22,7 +22,7 @@ Created on Mar 14, 2017
 
 @author: fanxueyi
 '''
-
+#one pointer record current min value, profix = currprice - currMin
 class Solution(object):
     def maxProfit(self, prices):
         """
