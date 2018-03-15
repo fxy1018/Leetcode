@@ -29,4 +29,12 @@ class Solution:
         for i in range(2, len(cost)):
             totalCost[i] = min(totalCost[i-1] + cost[i-1], totalCost[i-2]+cost[i-2])
         return(totalCost[-1])
-        
+   def minCostClimbingStairs2(self, cost):
+    #compress space
+        f1 = f2 = 0
+        cost.append(0)
+        for i in range(2, len(cost)):
+            tmp = min(f1 + cost[i-1], f2+cost[i-2])
+            f2 = f1
+            f1 = tmp
+        return(f1)
