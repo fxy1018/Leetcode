@@ -71,7 +71,38 @@ class Solution(object):
                     dp[i][j] = dp[i-1][j-1] + triangle[i][j]
         
         return(min(dp[-1]))
-    
+#dp, the sum of curr level i are from last level i or i-1
+
+class Solution:
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        level = len(triangle)
+        if level == 0:
+            return(0)
+        
+        levelSum = [triangle[0][0]]
+        for i in range(1, level):
+            currLevel = triangle[i]
+            cl = len(currLevel)
+            newSum = [0]  * cl
+            for i in range(cl):
+                if i == 0 :
+                    newSum[i] = levelSum[i] + currLevel[i]
+                elif i == cl - 1:
+                    newSum[i] = levelSum[i-1] + currLevel[i]
+                else:
+                    newSum[i] = min(levelSum[i], levelSum[i-1]) + currLevel[i]
+                    
+            levelSum = newSum
+        
+        return(min(levelSum))
+        
+        
+        
+        
     
 
 s = Solution()
