@@ -37,5 +37,58 @@ class Solution(object):
                 
         return(l_b)
             
-            
+          
+          
+ # The isBadVersion API is already defined for you.
+# @param version, an integer
+# @return a bool
+# def isBadVersion(version):
+
+class Solution(object):
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        #binary search
+        low = 1
+        high = n
+        
+        while low <= high:
+            mid = (low+high)/2
+            if isBadVersion(mid):
+                if isBadVersion(mid-1):
+                    high = mid - 1
+                else:
+                    return(mid)
+            else:
+                if isBadVersion(mid+1):
+                    return(mid+1)
+                else:
+                    low = mid + 1 
+                    
+# The isBadVersion API is already defined for you.
+# @param version, an integer
+# @return a bool
+# def isBadVersion(version):
+
+class Solution(object):
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        #binary search
+
+        low = 1
+        high = n
+        
+        while low <= high:
+            mid = (low+high)/2
+            if isBadVersion(mid) == False:
+                low = mid + 1  
+            else:
+                high = mid - 1   
+        return(low)
+                
         
