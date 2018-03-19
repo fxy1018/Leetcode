@@ -35,7 +35,6 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
-        # brute-force
         if not nums:
             return(0)
         
@@ -66,7 +65,6 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
-        # brute-force
         if not nums:
             return(0)
 
@@ -84,4 +82,28 @@ class Solution:
             preMax = tmpMax
             res = max(preMax, res)
         return(res)
+ 
+#dp: consider neg * neg = pos, pon*neg = new; use two arrays to record max and min number if must be end at index i 
+class Solution:
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return(0)
+
+        preMin = preMax = res = nums[0]
+        
+        for n in nums[1:]:
+            if n < 0:
+                tmpMax = max(preMin*n, n)
+                tmpMin = min(preMax*n, n)  
+            else:
+                tmpMax = max(preMax*n, n)
+                tmpMin = min(preMin*n, n)
                 
+            preMin = tmpMin
+            preMax = tmpMax
+            res = max(preMax, res)
+        return(res)
