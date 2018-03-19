@@ -27,4 +27,61 @@ class Solution:
                         product *= nums[z]
                     res = max(res, product)
         return(res)
-                    
+
+#dp: consider neg * neg = pos, pon*neg = new; use two arrays to record max and min number if must be end at index i 
+class Solution:
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # brute-force
+        if not nums:
+            return(0)
+        
+        l = len(nums)
+        dpMin = [0] * l
+        dpMax = [0] * l
+        
+        dpMax[0] = dpMin[0] = res = nums[0]
+        
+        for i in range(1, l):
+            preMin = dpMin[i-1]
+            preMax = dpMax[i-1]
+            if nums[i] < 0:
+                dpMax[i] = max(preMin*nums[i], nums[i])
+                dpMin[i] = min(preMax*nums[i], nums[i])  
+            else:
+                dpMax[i] = max(preMax*nums[i], nums[i])
+                dpMin[i] = min(preMin*nums[i], nums[i])  
+            res = max(dpMax[i], res)
+        return(res)
+    
+    
+#method3: compress space
+#dp: consider neg * neg = pos, pon*neg = new; use two arrays to record max and min number if must be end at index i 
+class Solution:
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # brute-force
+        if not nums:
+            return(0)
+
+        preMin = preMax = res = nums[0]
+        
+        for i in range(1, len(nums)):
+            if nums[i] < 0:
+                tmpMax = max(preMin*nums[i], nums[i])
+                tmpMin = min(preMax*nums[i], nums[i])  
+            else:
+                tmpMax = max(preMax*nums[i], nums[i])
+                tmpMin = min(preMin*nums[i], nums[i])
+                
+            preMin = tmpMin
+            preMax = tmpMax
+            res = max(preMax, res)
+        return(res)
+                
