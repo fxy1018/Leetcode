@@ -53,7 +53,28 @@ class Solution(object):
             p_0 += 1
             p_1 += 1
             
-            
+class Solution:
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        p0= -1
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                p0 = i
+                break
+        if p0 == -1:
+            return
+        
+        for i in range(p0+1, len(nums)):
+            if nums[i] != 0:
+                nums[p0], nums[i] = nums[i], nums[p0]
+                p0 +=1
+                while nums[p0] != 0:
+                    p0+=1
+                
+        
         
         
         
