@@ -52,3 +52,13 @@ class Solution:
             else:
                 small += 1
         return((word[0] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" and cap == 1) or small == len(word) or cap == len(word))
+
+class Solution:
+    def detectCapitalUse(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        
+        #method3:
+        return word.isupper() or word.islower() or word.istitle()
