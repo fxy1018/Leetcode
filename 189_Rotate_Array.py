@@ -32,11 +32,28 @@ class Solution(object):
         """
         #no in-place
         if nums:
-            for i in range(k):
+            for i in range(k%len(nums)):
                 print(i)
                 tmp = nums[-1]
-                nums = nums.insert(0, tmp)
+                nums.insert(0, tmp)
                 nums.pop()
+ class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        
+        l = len(nums)
+        if k%l == 0:
+            return
+        step = k%l
+        part1 = nums[:l-k]
+        part2 = nums[l-k:]
+        nums[:k] = part2
+        nums[k:] = part1
+        return
 
 solution = Solution()
 print(solution.rotate([1,2],2))
