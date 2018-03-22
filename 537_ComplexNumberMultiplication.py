@@ -32,10 +32,7 @@ class Solution:
         p3 = y*n
         
         p13 = p1-p3
-        if p13 == 0:
-            return('0+'+str(p2)+"i")
-        else:
-            return(str(p13) + "+" + str(p2) + 'i')
+        return(str(p13) + "+" + str(p2) + 'i')
     
     def _getNums(self, s):
         a, c = s.split("+")
