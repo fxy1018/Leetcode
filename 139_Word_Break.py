@@ -58,3 +58,24 @@ class Solution(object):
                     dp[i] = True
                     break
         return(dp[-1])
+    
+    
+    class Solution:
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        wordSet = set(wordDict)
+        l = len(s)
+        dp = [False] * (l+1)
+        dp[0] = True
+        dp[1] = True if s[0] in wordSet else False
+        
+        for i in range(1, l):
+            for j in range(0, i+1):
+                if s[j:i+1] in wordSet and dp[j]:
+                    dp[i+1] = True
+                    break
+        return(dp[-1])
