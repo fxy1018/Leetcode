@@ -55,7 +55,28 @@ class Solution(object):
             self.helpFun(index+1, i+1, new_comb)
 
 
-
+class Solution:
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        arr = [x for x in range(1, n+1)]
+        curr = []
+        self._helpFun(arr, k, res, curr)
+        return(res)
+    
+    def _helpFun(self, arr, k, res, curr):
+        if k == 0:
+            if curr not in res:
+                res.append(curr)
+            return
+        for i in range(len(arr)):
+            newCurr = curr + [arr[i]]
+            newArr = arr[i+1:]
+            self._helpFun(newArr, k-1, res, newCurr)
 
 s=Solution()
 
