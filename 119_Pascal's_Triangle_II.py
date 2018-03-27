@@ -45,4 +45,22 @@ class Solution(object):
                 out[j] = (out[j]+out[j+1])
             out.pop()
         return(out)
-        
+class Solution:
+    def getRow(self, rowIndex):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        if rowIndex == 0:
+            return([1])
+        pre = [1]
+        for i in range(1, rowIndex+1):
+            l = len(pre)
+            tmp = []
+            for j in range(l+1):
+                if j == 0 or j ==l:
+                    tmp.append(1)
+                else:
+                    tmp.append(pre[j] + pre[j-1])
+            pre = tmp
+        return(pre)
