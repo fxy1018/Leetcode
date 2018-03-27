@@ -75,6 +75,60 @@ class Solution(object):
         #the l or r: at least one is None
         pre.next = l or r
         return(head)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head or not head.next:
+            return(head)
+        #merge sort
+        leftHead = head
+        rightHead = self._getMiddleNode(head)
+        left = self.sortList(leftHead)
+        right= self.sortList(rightHead)
+        head = self._mergeList(left, right)
+        return(head)
+        
+        
+    def _getMiddleNode(self, node):
+        if not node or not node.next:
+            return(node)
+        
+        slow = node
+        fast = node.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        nextNode = slow.next
+        slow.next = None
+        return(nextNode)
+    
+    def _mergeList(self, left, right):
+        dummy = head = ListNode(-1)
+        while left or right:
+            if not left:
+                dummy.next = right
+                return(head.next)
+            if not right:
+                dummy.next = left
+                return(head.next)
+            if left.val > right.val:
+                dummy.next = right
+                right = right.next
+            else:
+                dummy.next = left
+                left = left.next
+            dummy = dummy.next
+        return(head.next)
+                
                             
     
         
