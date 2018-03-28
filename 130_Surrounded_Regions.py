@@ -98,4 +98,55 @@ class Solution(object):
             if j < ncol-1 and ((i,j+1) not in queue):
                 if board[i][j+1] == "O":
                     queue.append((i,j+1))
+ class Solution:
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        #start from edge:
+        if not board:
+            return
         
+        row = len(board)
+        col = len(board[0])
+        for i in range(row):
+            if board[i][0] == "O":
+                self._bfs(i, 0, board)
+            if board[i][col-1]=="O":
+                self._bfs(i, col-1, board)
+        for j in range(col):
+            if board[0][j] == "O":
+                self._bfs(0, j, board)
+            if board[row-1][j]=="O":
+                self._bfs(row-1, j, board)
+        
+        for i in range(row):
+            for j in range(col):
+                if board[i][j] == "O":
+                    board[i][j] = "X"
+                if board[i][j] == "$":
+                    board[i][j] = "O"
+        return
+    
+    def _bfs(self, i, j, board):
+        queue = [(i,j)]
+        while queue:
+            i,j = queue[0]
+            board[i][j] = '$'
+            queue = queue[1:]
+            if i > 0:
+                if board[i-1][j] == "O" and (i-1, j) not in queue:
+                    queue.append((i-1,j))
+            if j > 0:
+                if board[i][j-1] == "O" and (i, j-1) not in queue:
+                    queue.append((i,j-1))     
+            if i < len(board)-1:
+                if board[i+1][j] == "O" and (i+1, j) not in queue:
+                    queue.append((i+1,j))
+            if j < len(board[0])-1:
+                if board[i][j+1] == "O" and (i, j+1) not in queue:
+                    queue.append((i,j+1))
+                
+        
+               
