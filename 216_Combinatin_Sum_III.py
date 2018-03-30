@@ -57,7 +57,34 @@ class Solution(object):
                 new_comb = comb + [candidates[i]]
                 self.helpFun(i+1, count+1, tmp_target, new_comb, candidates)
             
-        
+ class Solution(object):
+	def combinationSum3(self, k, n):
+		"""
+		:type k: int
+		:type n: int
+		:rtype: List[List[int]]
+		"""
+
+		numList = [x for x in range(1, 10)]
+		res = []
+		curr = []
+		self._helpFun(numList, k, n, res, curr)
+		return(res)
+
+	def _helpFun(self, numList, k, n , res, curr):
+		if k == 0:
+			if n == 0:
+				if curr not in res:
+					res.append(curr)
+			return
+
+		if n <= 0 and k > 0:
+			return 
+
+		for i in range(len(numList)):
+			newCurr = curr + [numList[i]]
+			newNumList = numList[i+1:]
+			self._helpFun(newNumList, k-1, n-numList[i], res, newCurr)       
         
 
 
