@@ -3,6 +3,11 @@
 Given a list of non negative integers, arrange them such that they form the largest number.
 
 For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.
+'''
+
+Given a list of non negative integers, arrange them such that they form the largest number.
+
+For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.
 
 Note: The result may be very large, so you need to return a string instead of an integer.
 
@@ -11,7 +16,7 @@ Note: The result may be very large, so you need to return a string instead of an
 使用默认的比较函数排序，会得到不一定是最大值，例如 {360, 36} 排序后得到的是 36036 ，明显不是小于 36360。解决这个问题，就是重写比较函数，使得排序后的两个元素连接成为较大的整数即可，很简洁。
 
 '''
-
+#python2
 class Solution:
     # @param {integer[]} nums
     # @return {string}
@@ -31,4 +36,13 @@ class Solution:
             i+=1
         
         return(res[i:])
-    
+        
+ #python3
+class LargerNumKey(str):
+    def __lt__(x, y):
+        return x+y > y+x
+        
+class Solution:
+    def largestNumber(self, nums):
+        largest_num = ''.join(sorted(map(str, nums), key=LargerNumKey))
+        return '0' if largest_num[0] == '0' else largest_num
