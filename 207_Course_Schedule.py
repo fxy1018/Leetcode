@@ -112,3 +112,97 @@ class Solution(object):
 s=Solution()
 print(s.canFinish(3, [[2,0],[2,1]]))
 
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        #Kahn's algorithm: topological sort based on BFS
+        if not prerequisites:
+            return(True)
+        
+        #create two hash, one is node -> next node, one is next node -> node
+        comingEdgeHash = {}
+        toEdgeHash = {}
+        
+        for i in range(numCourses):
+            comingEdgeHash[i] = []
+            toEdgeHash[i] = []
+
+        for p in prerequisites:
+            toEdgeHash[p[0]].append(p[1])
+            comingEdgeHash[p[1]].append(p[0])
+     
+        visit = []
+        noIncomingNode = set([])
+        
+        
+        for n in comingEdgeHash:
+            if not comingEdgeHash[n]:
+                noIncomingNode.add(n)
+        
+        
+        while noIncomingNode:
+            node = noIncomingNode.pop()
+            visit.append(node)
+            print(node)
+            nextNodes = [n for n in toEdgeHash[node]]
+            for m in nextNodes:
+                prerequisites.remove([node, m])
+                toEdgeHash[node].remove(m)
+                comingEdgeHash[m].remove(node)
+                if not comingEdgeHash[m]:
+                    noIncomingNode.add(m)
+                   
+        if prerequisites:
+            return(False)
+        else:
+            return(True)
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        #dfs + recur
+        if not prerequisites:
+            return(True)
+        
+        #create two hash, one is node -> next node, one is next node -> node
+        toEdgeHash = {}
+        
+        for i in range(numCourses):
+            toEdgeHash[i] = []
+
+        for p in prerequisites:
+            toEdgeHash[p[0]].append(p[1])
+            
+        visit = [0] * numCourses
+        
+        for i in range(numCourses):
+            if not self._dfs(i, toEdgeHash, visit):
+                return(False)
+    
+        return(True)
+        
+    def _dfs(self, i, toEdgeHash, visit):
+        if visit[i] == -1:
+            return(False)
+        if visit[i] == 1:
+            return(True)
+        visit[i] = -1
+        for j in toEdgeHash[i]:
+            if not self._dfs(j, toEdgeHash, visit):
+                return(False)
+        visit[i] = 1
+        return(True)
+ '''
+ if node v has not been visited, then mark it as 0.
+if node v is being visited, then mark it as -1. If we find a vertex marked as -1 in DFS, then their is a ring.
+if node v has been visited, then mark it as 1. If a vertex was marked as 1, then no ring contains v or its successors.
+ 
+ '''
+
