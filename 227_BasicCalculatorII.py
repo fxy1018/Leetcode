@@ -67,3 +67,35 @@ class Solution:
             i+=1
         return(pre, i)
         
+class Solution:
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+       
+        pre = 0
+        stack = []
+        sign = "+"
+        for i in range(len(s)):
+            if s[i] in "0123456789":
+                pre = 10*pre + ord(s[i]) - ord("0")
+            if s[i] in "+-*/" or i == len(s)-1:
+                if sign == "+":
+                    stack.append(pre)
+                if sign == "-":
+                    stack.append(-1 * pre)
+                if sign == "*":
+                    preNum = stack.pop()
+                    stack.append(preNum * pre)
+                if sign == "/":
+                    preNum = stack.pop()
+                    if preNum * pre < 0 :
+                        stack.append(math.ceil(preNum/pre))
+                    else:
+                        stack.append(preNum // pre)
+                sign = s[i]
+                pre = 0
+        return(sum(stack))
+        
+        
