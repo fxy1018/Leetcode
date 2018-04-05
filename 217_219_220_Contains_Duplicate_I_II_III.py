@@ -74,5 +74,32 @@ class Solution219(object):
 
     
     #这里有两个限制条件，两个数字的坐标差不能大于k，值差不能大于t。这道题如果用brute force会超时，所以我们只能另辟蹊径。这里我们使用map数据结构来解,用来记录数字和其下标之间的映射。 这里需要两个指针i和j，刚开始i和j都指向0，然后i开始向右走遍历数组，如果i和j之差大于k，且m中有nums[j]，则删除并j加一。这样保证了m中所有的数的下标之差都不大于k，然后我们用map数据结构的lower_bound()函数来找一个特定范围，就是大于或等于nums[i] - t的地方，所有小于这个阈值的数和nums[i]的差的绝对值会大于t (可自行带数检验)。然后检测后面的所有的数字，如果数的差的绝对值小于等于t，则返回true。最后遍历完整个数组返回false。
-class Solution220(object):
+#bucket
+class Solution220:
+    def containsNearbyAlmostDuplicate(self, nums, k, t):
+        """
+        :type nums: List[int]
+        :type k: int
+        :type t: int
+        :rtype: bool
+        """
+        # Bucket sort. Each bucket has size of t. For each number, the possible
+        # candidate can only be in the same bucket or the two buckets besides.
+        # Keep as many as k buckets to ensure that the difference is at most k.
+        if not nums:
+            return(False)
+        buckets = {}
+        for j in range(len(nums)):
+            num = nums[j]
+            bucketNum, offset = (num//t, 1) if t else (num, 0)
+            
+            for i in range(bucketNum-offset, bucketNum+offset+1):
+                if i in buckets and abs(buckets[i] - nums[j])<=t:
+                    return(True)
+            buckets[bucketNum]=nums[j]
+            if len(buckets) > k:
+                del(buckets[nums[j-k]//t if t else nums[j-k]])
+                
+        return(False)
+            
         
