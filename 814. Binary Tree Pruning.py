@@ -44,8 +44,6 @@ class Solution:
         :type root: TreeNode
         :rtype: TreeNode
         """
-        if not root:
-            return(None)
         if self._hasOne(root):
             return(root)
         else:
