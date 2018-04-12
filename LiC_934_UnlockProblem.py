@@ -36,3 +36,23 @@ class Solution:
             if i%j == 0:
                 count += 1
         return(~count %2 ==0)
+       
+#用所有的钥匙去筛锁即可，时间复杂度O(mlogn)
+class Solution:
+    """
+    @param n: the number of keys
+    @param m: the number of locks
+    @return: the numbers of open locks
+    """
+    def unlock(self, n, m):
+        # Write your code here
+        p = [0 for _ in range(m)]
+    
+        for i in range(1, n+1):
+            j = i
+            while j <= m:
+                p[j-1] ^= 1
+                j += i
+        
+        return(sum(p))
+                
