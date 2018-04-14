@@ -42,7 +42,31 @@ class Solution:
                 dp[i][j] = min(dp[i][j-1] + 1, dp[i-1][j]+ 1, tmp)       
         return(dp[m-1][n-1])
 
+class Solution(object):
+    def minDistance(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        
+        m = len(word1) + 1
+        n = len(word2) + 1
+        res = [[0] * m for _ in range(n)]
 
+        for i in range(n):
+            res[i][0] = i
+        for j in range(m):
+            res[0][j] = j
+        
+        for i in range(1, n):
+            for j in range(1,m):
+                if word1[j-1] == word2[i-1]:
+                    res[i][j] = res[i-1][j-1]
+                else:
+                    res[i][j] = min(res[i-1][j-1], res[i-1][j], res[i][j-1]) + 1
+        return(res[-1][-1])
+    
 import unittest
 class TestSolution(unittest.TestCase):
     def test_longword(self):
