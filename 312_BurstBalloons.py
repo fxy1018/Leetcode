@@ -20,6 +20,8 @@ Return 167
 
 
 class Solution:
+    
+    #index problem
     def maxCoins(self, nums):
         """
         :type nums: List[int]
@@ -46,7 +48,28 @@ class Solution:
             tmp = max(tmp, nums[k]* nums[start-1] * nums[end+1] + self.getMemo(memo, nums, start, k-1)+ self.getMemo(memo, nums, k+1, end))
         memo[start][end] = tmp
         return(memo[start][end])
+  
+#correct index    
+  class Solution:
+    def maxCoins(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums = [1] + nums + [1]
+        l = len(nums)
+        memo = [[0]* l for _ in range(l)]
+        return(self.getMemo(memo,nums, 0, l-1))
         
-   
+    
+    def getMemo(self, memo, nums, start, end):
+        if memo[start][end] or start+1 == end   :
+            return(memo[start][end])
+        
+        tmp = 0
+        for k in range(start+1, end):
+            tmp = max(tmp, nums[k]* nums[start] * nums[end] + self.getMemo(memo, nums, start, k)+ self.getMemo(memo, nums, k, end))
+        memo[start][end] = tmp
+        return(memo[start][end]) 
    
 
