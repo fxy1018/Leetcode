@@ -1,0 +1,31 @@
+class Solution:
+    def findShortestSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #use two Hash, one to record degree and other one to record start and end index
+        hash1 = {}
+        hash2 = {}
+        for i in range(len(nums)):
+            n = nums[i]
+            if n not in hash1:
+                hash1[n] = 1
+                hash2[n] = [i, i]
+            else:
+                hash1[n] = hash1[n] + 1
+                hash2[n][1] = i
+        
+        degree = 0
+        num = []
+        for key in hash1:
+            if hash1[key] > degree:
+                num = [key]
+                degree = hash1[key]
+            elif hash1[key] == degree:
+                num.append(key)
+                
+        res = len(nums)
+        for n in num:
+            res = min(res, hash2[n][1] - hash2[n][0] + 1)
+        return(res)
