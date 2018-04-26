@@ -140,9 +140,7 @@ class Solution:
                 i += 1
             else:
                 i += 1
-        res = NestedInteger()
-        res.add(stack[0])
-        return(res.getList()[0])    
+        return(stack[0]) 
         
         
         
