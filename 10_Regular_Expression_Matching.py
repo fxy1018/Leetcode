@@ -53,5 +53,37 @@ class Solution(object):
         print(T)
         return(T[nrow-1][ncol-1]==True)
                     
-
-                
+class Solution:
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        p = " " + p
+        s = " " + s
+        row = len(p)
+        col = len(s)
+        
+        #initialize the dp matrix
+        dp = [[False]*col for _ in range(row)]
+        dp[0][0]= True
+        
+        for i in range(1, row):
+            if i > 1 and p[i] == "*":
+                dp[i][0] = dp[i-2][0] or dp[i-1][0]
+        
+        #fill in the dp matrix
+        for i in range(1, row):
+            for j in range(1, col):
+                if p[i] == "." or s[j] == p[i]:
+                    dp[i][j] = dp[i-1][j-1]
+                elif p[i] == "*":
+                    #check * means 0 or * menas >=1
+                    if i > 1:
+                        if dp[i-2][j]:
+                            dp[i][j] = True
+                        elif p[i-1] == "." or s[j] == p[i-1]:
+                            dp[i][j] = dp[i][j-1] 
+        return(dp[-1][-1])
+               
