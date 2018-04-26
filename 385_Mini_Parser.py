@@ -100,7 +100,49 @@ class Solution:
         return(res)
        
             
-        
+    class Solution:
+    def deserialize(self, s):
+        """
+        :type s: str
+        :rtype: NestedInteger
+        """
+        #iteration
+        if not s :
+            return(NestedInteger())
+        if s[0] != "[":
+            return(NestedInteger(int(s)))
+        if len(s) <=2 : 
+            return(NestedInteger())
+        stack = []
+        i = 0
+        sign = 1
+        num = 0
+        while i < len(s):
+            if s[i] =="[":
+                stack.append(s[i])
+                i += 1
+            elif s[i] in "-1234567890":
+                if s[i] == "-":
+                    sign = -1
+                    i += 1
+                while s[i] in "1234567890":
+                    num = 10*num + int(s[i])
+                    i += 1
+                stack.append(num*sign)
+                sign = 1
+                num = 0
+            elif s[i] == "]":
+                tmpArr = []
+                while stack[-1] != "[":
+                    tmpArr.append(NestedInteger(stack.pop())) 
+                stack.pop()
+                stack.append(tmpArr[::-1])
+                i += 1
+            else:
+                i += 1
+        res = NestedInteger()
+        res.add(stack[0])
+        return(res.getList()[0])    
         
         
         
