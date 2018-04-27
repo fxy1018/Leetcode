@@ -61,3 +61,24 @@ class Solution(object):
                 room +=1
         return(room)
 
+import heapq
+class Solution:
+    """
+    @param intervals: an array of meeting time intervals
+    @return: the minimum number of conference rooms required
+    """
+    def minMeetingRooms(self, intervals):
+        # Write your code here
+        if not intervals:
+            return(0)
+        start_inter = sorted(intervals, key=lambda x: x.start)
+        minHeap = []
+        heapq.heappush(minHeap, start_inter[0].end)
+        for i in range(1, len(start_inter)):
+            if start_inter[i].start >= minHeap[0]:
+                heapq.heappop(minHeap)
+                heapq.heappush(minHeap, start_inter[i].end)
+            else:
+                heapq.heappush(minHeap, start_inter[i].end)
+        
+        return(len(minHeap))
