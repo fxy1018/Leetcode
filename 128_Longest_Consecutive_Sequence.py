@@ -43,3 +43,44 @@ class Solution(object):
                 curr_len += 1
             max_len = max(curr_len, max_len)
         return(max_len)
+    
+class Solution:
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left = {}
+        right = {}
+        nums = set(nums)
+        res = 0
+        for num in nums:
+            if num+1 in left:
+                #check left:
+                left[num] = left[num+1] + 1
+                right[num+left[num+1]] = left[num+1] + 1
+                res = max(res, left[num+1] + 1)
+                
+            if num-1 in right:
+                #check right:
+                right[num] = right[num-1] + 1
+                left[num-right[num-1]] = right[num-1] + 1
+                res = max(res, right[num-1] + 1)
+            #check whether two interval can merge:
+            if num in left and num in right:
+                tmp1 = left[num]
+                tmp2 = right[num]
+                del(left[num])
+                del(right[num])
+                new = tmp2 + tmp1-1
+                left[num-tmp2+1] = new
+                right[num + tmp1-1] = new               
+                res = max(res, new)
+                
+            if num+1 not in left and num-1 not in right:
+                left[num] = 1
+                right[num] = 1
+                res = max(res, 1)
+        
+        return(res)
+        
