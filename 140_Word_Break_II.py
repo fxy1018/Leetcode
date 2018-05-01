@@ -48,42 +48,6 @@ class Solution1(object):
             self.result.append(" ".join(elements))
             return
 
-#Using DFS directly will lead to TLE, here I used HashMap to save the previous results to prune duplicated branches
-class Solution (object):
-    def __init__(self):
-        self.result = []
-    def wordBreak(self, s, wordDict):
-        """
-        :type s: str
-        :type wordDict: List[str]
-        :rtype: List[str]
-        """
-        #backtracking strategy
-        created = {}
-        wordDict = set(wordDict)
-        self.helpFun(s, wordDict, created)
-        return(self.result)
-    
-    def helpFun(self, s, wordDict, created) :
-        if not s:
-            return([None])
-        
-        if s in created:
-            self.result.append(created[s])
-            return(created[s])
-        res = []
-        for word in wordDict:
-            n = len(word)
-            if s[:n] == word:
-                elements = self.helpFun(s[n:], wordDict, created)
-                for e in elements:
-                    if e:
-                        res.append(word + " " + e)
-                    else:
-                        res.append(word) 
-            created[s] = res
-            return res 
-        return(self.helpFun(s,wordDict, created))
 
 
 # 采用深度优先遍历的策略，我们把字符串分为前后两个部分，如果前半部分在单词组中，那么我们就只要递归拆分它的后半部分。那么怎么将字符串分为前后两个部分呢，我们可以直接依次把单词组中的单词与当前字符串的头部进行比较，如果相同，则递归后半部分。
@@ -122,62 +86,37 @@ class Solution2(object):
         dic[s] = res
         return res
     
-class Solution3(object):
-    def __init__(self):
-        self.result=[]
+class Solution:
     def wordBreak(self, s, wordDict):
         """
         :type s: str
         :type wordDict: List[str]
         :rtype: List[str]
         """
-        self.dfs(s,wordDict, [])
-        return(self.result)
-    
-    def dfs(self, s, wordDict, res):
-        if not s:
-            self.result.append(" ".join(res))
-            return
+        wordSet = set(wordDict)
+        memo = {}
         
-        for word in wordDict:
+        return(self.helpFun(s, wordSet, memo, 0))
+        
+    def helpFun(self, s, wordSet, memo, pos):
+        if pos >= len(s):
+            return([None])
+            
+        if pos in memo:
+            return(memo[pos])
+        res = []
+        for word in wordSet:
             n = len(word)
-            if s[:n] == word:
-                newRes = res[:]
-                newRes.append(word)
-                self.dfs(s[n:], wordDict, newRes)
-
-class Solution4(object):
-    def __init__(self):
-        self.result=[]
-    def wordBreak(self, s, wordDict):
-        """
-        :type s: str
-        :type wordDict: List[str]
-        :rtype: List[str]
-        """
-        createdS = {}
-        self.dfs(s,wordDict, [], createdS)
-        return(self.result)
-    
-    def dfs(self, s, wordDict, res, createdS):
-        if not s:
-            self.result.append(" ".join(res))
-            return
-        if s in createdS:
-            for i in createdS[s]:
-                new = res + i
-                self.result.append(" ".join(new))
-            return
-#
-        for i in range(len(s)+1):
-            if s[:i] in wordDict:
-                newres = res + [s[:i]]
-                if "".join(newres) not in createdS:
-                    createdS["".join(newres)] = [newres]
-                else:
-                    createdS["".join(newres)].append(newres)
-                self.dfs(s[i:], wordDict, newres, createdS)
-
+            if s[pos: pos+n] == word:
+                for r in self.helpFun(s, wordSet, memo, pos+n):
+                    if r:
+                        res.append(word + " " + r) 
+                    else:
+                        res.append(word)
+                    
+        memo[pos] = res
+        return(res)       
+            
 
  
  
