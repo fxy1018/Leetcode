@@ -42,3 +42,27 @@ class Solution(object):
         
         nums[:] = nums[::-1]
             
+class Solution:
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        lastIndex = -1
+        for i in range(len(nums)-1):
+            if nums[i+1] > nums[i]:
+                lastIndex = i
+        if lastIndex == -1:
+            nums[:] = nums[::-1]
+            return
+        
+        tmpNums = nums[lastIndex+1:][::-1]
+        placeIndex = -1
+        for i in range(len(tmpNums)):
+            if tmpNums[i] > nums[lastIndex]:
+                placeIndex = i
+                break
+        tmp = nums[lastIndex]
+        nums[lastIndex] = tmpNums[placeIndex]
+        tmpNums[placeIndex] = tmp
+        nums[lastIndex+1:] = tmpNums
