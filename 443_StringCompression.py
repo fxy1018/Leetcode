@@ -81,3 +81,47 @@ class Solution:
                 chars[lastCharIndex + 1] = tmp.pop()
                 lastCharIndex += 1
         return(lastCharIndex)
+class Solution:
+    def compress(self, chars):
+        """
+        :type chars: List[str]
+        :rtype: int
+        """
+        
+        point = 0
+        pre = chars[0]
+        curr = 1
+        count = 1
+        
+        while curr <= len(chars) :
+            if curr == len(chars):
+                chars[point] = pre
+                point += 1
+                if count != 1:
+                    count = [c for c in str(count)]
+                    for c in count:
+                        chars[point] = c
+                        point += 1
+                break
+                
+            if chars[curr] == pre:
+                count += 1
+            else:
+                chars[point] = pre
+                pre = chars[curr]
+                point += 1
+                if count != 1:
+                    count = [c for c in str(count)]
+                    for c in count:
+                        chars[point] = c
+                        point += 1
+                count = 1
+            curr += 1
+        return(point)
+                        
+                    
+                
+        
+        
+        
+        
