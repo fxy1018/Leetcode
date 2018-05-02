@@ -80,4 +80,57 @@ class Solution2(object):
         if queue_left or queue_right:
             return(False)
         return(True)
-            
+    
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        #recursively
+        return(self.helpFun(root, root))
+    
+    def helpFun(self, left, right):
+        if not left and not right:
+            return(True)
+        if not left or not right:
+            return(False)
+        
+        return(left.val==right.val and self.helpFun(left.left, right.right) and self.helpFun(left.right, right.left))           
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        #iteratively
+        if not root:
+            return(True)
+        queue = [(root, root)]
+        while queue:
+            left, right = queue[0]
+            queue = queue[1:]
+            if not left and not right:
+                continue
+            if not left or not right:
+                return(False)
+            if left.val != right.val:
+                return(False)
+            queue.append((left.left, right.right))
+            queue.append((left.right, right.left))
+    
+        return(True)
