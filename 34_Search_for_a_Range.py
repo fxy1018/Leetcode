@@ -40,3 +40,50 @@ class Solution(object):
             out.sort()
             res = [out[0]]+[out[-1]]
             return(res)
+        
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        left = 0
+        right = len(nums)-1
+        index = -1
+        while left <= right:
+            mid = (left+right)//2
+            if target == nums[mid]:
+                index = mid
+                break
+            elif target > nums[mid]:
+                left = mid + 1
+            else:
+                right = mid - 1
+        if index == -1:
+            return([-1,-1])
+        
+        #find left bound
+        left = 0
+        right = index
+        indexL = index
+        while left <= right:
+            mid = (left + right)//2
+            if target == nums[mid]:
+                indexL = mid
+                right = mid -1
+            elif target > nums[mid]:
+                left = mid + 1
+        #find right bount
+        left = index
+        right = len(nums)-1
+        indexR = index
+        while left <= right:
+            mid = (left + right)//2
+            if target == nums[mid]:
+                indexR = mid
+                left = mid + 1
+            elif target < nums[mid]:
+                right = mid - 1
+        return([indexL, indexR])
+                
