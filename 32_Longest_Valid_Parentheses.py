@@ -41,4 +41,22 @@ class Solution(object):
                         curr_len = i-stack[-1][0]
                     max_len = max(max_len, curr_len) 
         return max_len
-        
+ class Solution(object):
+    def longestValidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        #DP
+        if not s:
+            return(0)
+        dp = [0] * len(s)
+        for i in range(1, len(s)):
+            pre = i-dp[i-1] -1
+            if s[i] == ")" and pre>=0 and s[pre] == "(":
+                if pre > 0:
+                    dp[i] = dp[i-1] + 2 + dp[pre-1]
+                else:
+                    dp[i] = dp[i-1] + 2      
+        return(max(dp))
+            
