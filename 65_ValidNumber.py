@@ -16,7 +16,7 @@ The signature of the C++ function had been updated. If you still see your functi
 '''
 
 #https://blog.csdn.net/sjt19910311/article/details/46648283
-
+# not working in Leetcode 
 class Solution:
     def isNumber(self, s):
         """
@@ -59,7 +59,20 @@ class Solution:
         
         return(True)
                 
-            
+#regular expression
+import re
+class Solution:
+    def isNumber(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        regex = '^\s*[+|-]?(\d+\.?\d*|\d*\.?\d+)(e[+|-]?\d+)?\s*$'
+        if not re.match(regex, s):
+            return(False)
+        else:
+            return(True)
+                    
             
             
         
