@@ -110,3 +110,30 @@ class Solution2(object):
                 stack.append([node.left, ls+[node.left.val]])
         return(out)
                 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        currPath = []
+        self.helpFun(root, sum, currPath, res)
+        return(res)
+    
+    def helpFun(self, root, sum, currPath, res):
+        if not root:
+            return()
+        if not root.left and not root.right and root.val == sum:
+            res.append(currPath+[root.val])
+        
+        self.helpFun(root.left, sum-root.val, currPath+[root.val], res)
+        self.helpFun(root.right, sum-root.val, currPath+[root.val], res)
