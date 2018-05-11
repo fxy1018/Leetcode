@@ -51,5 +51,23 @@ class Solution(object):
         """
         
          
+  class Solution:
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        #method1:
+        
+        strHash = {}
+        for s in strs:
+            sortedS = sorted(list(s))
+            sortedS = "".join(sortedS)
             
+            strHash[sortedS] = strHash.get(sortedS, []) + [s]
+        
+        res = []
+        for key in strHash:
+            res.append(strHash[key])
+        return(res)          
         
