@@ -42,3 +42,31 @@ rotate the input matrix in-place such that it becomes:
 
 
 '''
+class Solution:
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        if not matrix:
+            return
+        row = len(matrix)
+        for i in range(row):
+            for j in range(i, row-i-1):
+                pos1 = [i,j]
+                pos2 = [j, row-i-1]
+                pos3 = [row-i-1, row-j-1]
+                pos4 = [row-j-1, i]
+                num1 = matrix[pos1[0]][pos1[1]]
+                num2 = matrix[pos2[0]][pos2[1]]
+                num3 = matrix[pos3[0]][pos3[1]]
+                num4 = matrix[pos4[0]][pos4[1]]
+                matrix[pos1[0]][pos1[1]] = num4
+                matrix[pos2[0]][pos2[1]] = num1
+                matrix[pos3[0]][pos3[1]] = num2
+                matrix[pos4[0]][pos4[1]] = num3
+        return
+                  
+  
+  
+  
