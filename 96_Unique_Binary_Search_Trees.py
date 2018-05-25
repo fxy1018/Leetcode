@@ -58,3 +58,25 @@ class Solution(object):
                 dp[i] += dp[j] * dp[i-1-j]
         
         return(dp[n])
+class Solution:
+    """
+    @param n: An integer
+    @return: An integer
+    """
+    def numTrees(self, n):
+        # write your code here
+        if n == 0:
+            return(1)
+        dp = [0] * (n+1)
+        dp[0] = 1
+        dp[1] = 1 
+        
+        for i in range(2, n+1):
+            tmp = 0
+            for j in range(1, i+1):
+                small = j - 1
+                large = i - j
+                tmp += dp[j-1] * dp[i-j]
+            dp[i] = tmp
+        return(dp[-1])
+        
