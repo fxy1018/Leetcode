@@ -33,7 +33,6 @@ class Solution:
         tree = {}
         for p in nodePair:
             tree[p[0]] = tree.get(p[0], []) + [p[1]]
-        print(tree)
         self.res = 0
         self.helpFun(tree, 1, d, 1)
         return(self.res)
@@ -44,9 +43,9 @@ class Solution:
             for c in children:
                 self.helpFun(tree, c, d, d[root-1]*curr)
         else:
-            print(root)
-            self.res = max(self.res, (d[root-1]*curr) %1e9+7)
+            self.res = max(self.res, (d[root-1]*curr) %(10**9+7))
             return
            
+        
         
           
