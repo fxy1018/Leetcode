@@ -16,7 +16,7 @@ word = "SEE", -> returns true,
 word = "ABCB", -> returns false.
 
 
-
+Time: m*n*4^(k-1)
 '''
 
 class Solution:
