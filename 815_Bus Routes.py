@@ -17,6 +17,11 @@ Note:
 1 <= routes[i].length <= 500.
 0 <= routes[i][j] < 10 ^ 6.
 
+Time Complexity: Let N denote the number of buses, and b_i be the number of stops on the iith bus.
+O(∑(N−i)b_i) work (we can improve this by checking for which of r1, r2 is smaller)
+Our (breadth-first) search is on NN nodes, and each node could have NN edges, so it is O(N^2).
+
+Space Complexity: O(N^2 + ∑b_i)additional space complexity, the size of graph and routes. 
 '''
 #bfs
 #time limited
