@@ -205,4 +205,43 @@ if node v is being visited, then mark it as -1. If we find a vertex marked as -1
 if node v has been visited, then mark it as 1. If a vertex was marked as 1, then no ring contains v or its successors.
  
  '''
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        #this is a question: detect a directed graph whether it has a cycle
+        if not prerequisites:
+            return(True)
+        #create nodeHash and get all incoming edge for each node
+        nodeIncomingHash = {}
+        nodeOutcomingHash = {}
+        for r in prerequisites:
+            nodeIncomingHash[r[0]] = nodeIncomingHash.get(r[0], []) + [r[1]]
+            if r[1] not in nodeIncomingHash:
+                nodeIncomingHash[r[1]] = []
+                
+            nodeOutcomingHash[r[1]] = nodeOutcomingHash.get(r[1], []) + [r[0]]
+            if r[0] not in nodeOutcomingHash:
+                nodeOutcomingHash[r[0]] = []
+        #put all node with no incoming edge
+        queue = [key for key in nodeIncomingHash if len(nodeIncomingHash[key])==0]
+        while queue:
+            node = queue[0]
+            queue = queue[1:]
+            nextNodes = nodeOutcomingHash[node] #list reference pay attention!!!!!
+            for i in range(len(nextNodes)):
+                n = nextNodes[i]
+                #remove the edge
+                nodeIncomingHash[n].remove(node)
+                if len(nodeIncomingHash[n]) == 0:
+                    queue.append(n)
+                else:
+                    continue
+        for key in nodeIncomingHash:
+            if len(nodeIncomingHash[key])>0:
+                return(False)
+        return(True)
 
