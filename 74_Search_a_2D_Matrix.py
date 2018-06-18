@@ -64,3 +64,42 @@ class Solution(object):
     
 s = Solution()
 print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,50]], 11))
+
+#time: O(logRow+logCol)
+class Solution:
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        if not matrix or not matrix[0]:
+            return(False)
+        
+        row = len(matrix)
+        col = len(matrix[0])
+        
+        #binary search for first item of each row
+        left = 0
+        right = row -1
+        
+        while left <= right:
+            mid = left + (right-left)//2
+            if matrix[mid][0] == target:
+                return(True)
+            elif matrix[mid][0] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        targetRow = right
+        left = 0 
+        right = col-1
+        while left <=right:
+            mid = left + (right-left)//2
+            if matrix[targetRow][mid] == target:
+                return(True)
+            elif matrix[targetRow][mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return(False)
