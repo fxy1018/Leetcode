@@ -138,4 +138,57 @@ class Solution(object):
                 
         return(False)          
     
-            
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        if not board or not word:
+            return(False)
+        
+        row = len(board)
+        col = len(board[0])
+        
+        if row*col < len(word):
+            return(False)
+        #dfs
+        for i in range(row):
+            for j in range(col):
+                if board[i][j] == word[0]:
+                    visit = set([])
+                    visit.add((i,j))
+                    if self.dfs(board, i, j, word[1:], visit):
+                        return(True)
+        return(False)
+    
+    def dfs(self, board, x, y, word,visit):
+        if not word:
+            return(True)
+        
+        if x > 0 and (x-1,y) not in visit and board[x-1][y] == word[0]:
+            visit.add((x-1, y))
+            if self.dfs(board,x-1,y, word[1:], visit):
+                return(True)
+            visit.remove((x-1,y))
+        
+        if y > 0 and (x,y-1) not in visit and board[x][y-1] == word[0]:
+            visit.add((x, y-1))
+            if self.dfs(board,x,y-1, word[1:], visit):
+                return(True)
+            visit.remove((x,y-1))   
+        
+        if x < len(board)-1 and (x+1,y) not in visit and board[x+1][y] == word[0]:
+            visit.add((x+1, y))
+            if self.dfs(board,x+1,y, word[1:], visit):
+                return(True)
+            visit.remove((x+1,y))
+        
+        if y < len(board[0])-1 and (x,y+1) not in visit and board[x][y+1] == word[0]:
+            visit.add((x, y+1))
+            if self.dfs(board,x,y+1, word[1:], visit):
+                return(True)
+            visit.remove((x,y+1))   
+        
+        return(False)            
