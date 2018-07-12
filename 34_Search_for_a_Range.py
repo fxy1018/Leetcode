@@ -87,3 +87,40 @@ class Solution(object):
                 right = mid - 1
         return([indexL, indexR])
                 
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        #binary search twice: 
+        #1. find last element smaller than target
+        #2. find first element bigger than target
+        
+        #find last element smaller than target:
+        left = 0
+        right = len(nums)
+        
+        while left < right:
+            mid = left + (right-left)//2
+            if target > nums[mid]:
+                left = mid +1
+            else:
+                right = mid
+        leftBound = right 
+        
+        left = 0
+        right = len(nums)
+        while left < right:
+            mid = left + (right-left)//2
+            if target < nums[mid]:
+                right = mid
+            else:
+                left = mid + 1
+        rightBound = right -1
+        
+        if rightBound - leftBound < 0:
+            return([-1,-1])
+        else:
+            return([leftBound, rightBound])
