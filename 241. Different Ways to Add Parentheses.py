@@ -57,3 +57,44 @@ class Solution:
                     res.append(l-r)
         return(res)
                 
+#use memo to speed up
+class Solution:
+    def __init__(self):
+        self.memo = {}
+    def diffWaysToCompute(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        if input in self.memo:
+            return(self.memo[input])
+        res = []
+        hasOperator = False
+        for i in range(len(input)):
+            if input[i] in "*-+":
+                hasOperator = True
+                left = self.diffWaysToCompute(input[:i])
+                right = self.diffWaysToCompute(input[(i+1):])
+                tmp = self.getTempResult(left, right, input[i])
+                res.extend(tmp)
+        if not hasOperator:
+            return([int(input)])
+        self.memo[input] = res
+        return(res)
+
+    def getTempResult(self, left, right, operator):
+        res = []
+        if operator == "*":
+            for l in left:
+                for r in right:
+                    res.append(l*r)
+        if operator == "+":
+            for l in left:
+                for r in right:
+                    res.append(l+r)
+        if operator == "-":
+            for l in left:
+                for r in right:
+                    res.append(l-r)
+        return(res)
+                
