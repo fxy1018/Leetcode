@@ -192,3 +192,51 @@ class Solution(object):
             visit.remove((x,y+1))   
         
         return(False)            
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        if not board:
+            return(False)
+        
+        m = len(board)
+        n = len(board[0])
+        visited = [[False for i in range(n)] for j in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if self.helpFun(board, word, i, j, visited):
+                    return(True)
+        return(False)
+        
+        
+    def helpFun(self, board, word, i, j, visited):
+        if not word:
+            return(True)
+        
+        if i<0 or j<0 or i>=len(board) or j >= len(board[0]):
+            return(False)
+        
+        if visited[i][j]:
+            return(False)
+        
+        if (board[i][j] != word[0]):
+            return(False)
+        
+        visited[i][j] = True
+     
+        if self.helpFun(board, word[1:], i-1, j, visited):
+            return(True)
+        
+        if self.helpFun(board, word[1:], i, j-1, visited):
+            return(True)
+        
+        if self.helpFun(board, word[1:], i+1, j, visited):
+            return(True)
+        
+        if self.helpFun(board, word[1:], i, j+1, visited):
+            return(True)
+        visited[i][j] = False
+        return(False)
