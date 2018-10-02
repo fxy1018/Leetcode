@@ -240,3 +240,51 @@ class Solution(object):
             return(True)
         visited[i][j] = False
         return(False)
+      
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        if not board or not word:
+            return(False)
+        
+        row = len(board)
+        col = len(board[0])
+    
+        visited = [[False] * col for _ in range(row)]
+        for i in range(row):
+            for j in range(col):
+                if self.dfs(board, word, i, j, visited):
+                    return(True)
+        return(False)
+        
+    def dfs(self, board, word, i, j, visited):
+        if not word:
+            return(True)
+        
+        if board[i][j] != word[0]:
+            return(False)
+        
+        if len(word)==1:
+            return(False)
+        
+        visited[i][j] = True
+        
+       
+        if i > 0 and (i-1,j) not in visited and self.dfs(board, word[1:], i-1, j, visited):
+            return(True)
+        if j > 0 and (i,j-1) not in visited and self.dfs(board, word[1:], i, j-1, visited):
+            return(True)
+        if i < len(board)-1 and (i+1,j) not in visited and self.dfs(board, word[1:], i+1, j, visited):
+            return(True)
+        if j < len(board[0])-1 and (i,j+1) not in visited and self.dfs(board, word[1:], i, j+1, visited):
+            return(True)
+        visited[i][j] = False
+        return(False)
+        
+        
+        
+        
