@@ -59,4 +59,58 @@ class Solution(object):
             return(True)
         
         return(False)
+    
+#bfs
+class Solution(object):
+    def hasPath(self, maze, start, destination):
+        """
+        :type maze: List[List[int]]
+        :type start: List[int]
+        :type destination: List[int]
+        :rtype: bool
+        """
+        #direction: left: (-1,0), right (1, 0), up (0, -1), down(0, 1)
+        nRow = len(maze)
+        nCol = len(maze[0])
+        visited = [ [0]*nCol for i in range(nRow)]
+        visited[start[0]][start[1]] = 1
+        queue = [start]
+        while queue:
+            currLoc = queue.pop(0)
+            if currLoc[0] == destination[0] and currLoc[1] == destination[1]:
+                return(True)
+            
+            
+            l = currLoc[1] - 1 
+            r = currLoc[1] + 1 
+            u = currLoc[0] - 1 
+            d = currLoc[0] + 1
+            
+            
+            while l >= 0 and maze[currLoc[0]][l] == 0:
+                l -= 1
+            if visited[currLoc[0]][l+1] == 0:
+                queue.append((currLoc[0], l+1))
+                visited[currLoc[0]][l+1] = 1
+            
+            while r < len(maze[0]) and maze[currLoc[0]][r] == 0:
+                r += 1
+            if visited[currLoc[0]][r-1] == 0:
+                queue.append((currLoc[0], r-1))
+                visited[currLoc[0]][r-1] = 1
+            
+            while u >= 0 and maze[u][currLoc[1]] == 0:
+                u -= 1
+            if visited[u+1][currLoc[1]] == 0:
+                queue.append((u+1, currLoc[1]))
+                visited[u+1][currLoc[1]] = 1
+                
+            while d < len(maze) and maze[d][currLoc[1]] == 0:
+                d += 1
+            if visited[d-1][currLoc[1]] == 0:
+                queue.append((d-1, currLoc[1]))
+                visited[d-1][currLoc[1]] = 1
+        
+        return(False)
+            
         
