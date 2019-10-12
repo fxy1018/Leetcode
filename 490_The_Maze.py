@@ -113,4 +113,38 @@ class Solution(object):
         
         return(False)
             
+class Solution(object):
+    def hasPath(self, maze, start, destination):
+        """
+        :type maze: List[List[int]]
+        :type start: List[int]
+        :type destination: List[int]
+        :rtype: bool
+        """
+        #dfs
+        visited = [[0] * len(maze[0]) for i in range(len(maze))]
+        return(self.dfs(maze, start, destination, visited))
+    
+    def dfs(self, maze, start, destination, visited):
+        if visited[start[0]][start[1]]:
+            return(False)
         
+        if start[0] == destination[0] and start[1] == destination[1]:
+            return(True)
+        
+        dirs = [(-1,0),(1,0),(0,1),(0,-1)]
+        visited[start[0]][start[1]] = 1
+        
+        for d in dirs:
+            x = start[0]
+            y = start[1]
+            while x + d[0] >= 0 and y +d[1] >= 0 and x+d[0] < len(maze) and y+d[1] < len(maze[0]) and maze[x+d[0]][y+d[1]]==0:
+                x += d[0]
+                y += d[1] 
+            
+            if self.dfs(maze, (x, y), destination, visited):
+                return(True)
+        
+        return(False)
+            
+                
