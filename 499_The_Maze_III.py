@@ -7,7 +7,7 @@ The maze is represented by a binary 2D array. 1 means the wall and 0 means the e
 
 
 '''
-
+#wrong solution
 class Solution(object):
     def findShortestWay(self, maze, ball, hole):
         """
@@ -49,5 +49,47 @@ class Solution(object):
                     heapq.heappush(queue, (step+count, path+di, (x-dir[0], y-dir[1])))
                 
         return("impossible")
-                
+
+#bfs + dijkstra algorithm
+from heapq import heappush, heappop
+class Solution(object):
+    def findShortestWay(self, maze, ball, hole):
+        """
+        :type maze: List[List[int]]
+        :type ball: List[int]
+        :type hole: List[int]
+        :rtype: str
+        """
+        visited = set([])
+        queue = []
+        heapq.heappush(queue, (0, "", (ball[0], ball[1])))
+        
+        dirs = {"d":(1, 0), "l":(0,-1), "r":(0, 1), "u":(-1, 0)}
+        while queue:
+            step, path, (bx, by) = heapq.heappop(queue)
             
+            if bx == hole[0] and by == hole[1]:
+                return(path)
+            
+            if (bx, by) in visited:
+                continue
+                
+            visited.add((bx, by)) 
+            for di in ["d", "u", "r", "l"]:
+                dir = dirs[di]
+                x = bx 
+                y = by 
+                count = 0
+                while x+dir[0]>=0 and y+dir[1]>=0 and x+dir[0]<len(maze) and y+dir[1]<len(maze[0]) and maze[x+dir[0]][y+dir[1]] == 0:
+                    x += dir[0]
+                    y += dir[1]
+                    count += 1
+                    
+                    if x == hole[0] and y == hole[1]:
+                        break
+                
+                heapq.heappush(queue, (step+count, path+di, (x, y)))
+                
+        return("impossible")
+                
+                     
